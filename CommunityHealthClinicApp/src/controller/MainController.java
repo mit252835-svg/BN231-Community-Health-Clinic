@@ -1,5 +1,7 @@
 package controller;
 
+import data.FileManager;
+
 import model.Clinic;
 import view.*;
 
@@ -11,6 +13,8 @@ public class MainController {
     public MainController() {
 
         clinic = new Clinic();
+        clinic.getPatients().addAll(FileManager.loadPatients());
+        System.out.println("Loaded patients: " + clinic.getPatients().size());
         mainMenu = new MainMenuView();
 
         mainMenu.getPatientButton().addActionListener(e -> {
