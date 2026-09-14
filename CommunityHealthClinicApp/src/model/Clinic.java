@@ -47,4 +47,27 @@ public class Clinic {
     public ArrayList<Treatment> getTreatments() {
         return treatments;
     }
-}
+
+    public Patient findPatientById(String patientId) {
+
+        for (Patient patient : patients) {
+            if (patient.getPatientId().equalsIgnoreCase(patientId)) {
+                return patient;
+            }
+        }
+
+        return null;
+    }
+
+    public Doctor findDoctorById(String doctorId) {
+
+        for (Doctor doctor : doctors) {
+            if (doctor.getDoctorId().equalsIgnoreCase(doctorId)) {
+                return doctor;
+            }
+        }
+
+        return null;
+    }
+
+    }
