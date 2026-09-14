@@ -69,5 +69,22 @@ public class Clinic {
 
         return null;
     }
+    public void sortAppointmentsByDate() {
+
+        for (int i = 0; i < appointments.size() - 1; i++) {
+
+            for (int j = 0; j < appointments.size() - 1 - i; j++) {
+
+                Appointment first = appointments.get(j);
+                Appointment second = appointments.get(j + 1);
+
+                if (first.getDate().compareTo(second.getDate()) > 0) {
+
+                    appointments.set(j, second);
+                    appointments.set(j + 1, first);
+                }
+            }
+        }
+    }
 
     }

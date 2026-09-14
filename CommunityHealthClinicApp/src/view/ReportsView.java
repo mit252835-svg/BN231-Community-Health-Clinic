@@ -6,14 +6,17 @@ import java.awt.*;
 public class ReportsView extends JFrame {
 
     private JTextArea reportArea;
+
     private JButton showPatientsButton;
     private JButton showAppointmentsButton;
+    private JButton searchPatientButton;
+    private JButton sortAppointmentsButton;
     private JButton backButton;
 
     public ReportsView() {
 
         setTitle("Reports");
-        setSize(500, 400);
+        setSize(750, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -27,13 +30,17 @@ public class ReportsView extends JFrame {
 
         showPatientsButton = new JButton("Show Patients");
         showAppointmentsButton = new JButton("Show Appointments");
+        searchPatientButton = new JButton("Search Patient");
+        sortAppointmentsButton = new JButton("Sort Appointments");
         backButton = new JButton("Back");
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3, 10, 10));
+        buttonPanel.setLayout(new GridLayout(1, 5, 10, 10));
 
         buttonPanel.add(showPatientsButton);
         buttonPanel.add(showAppointmentsButton);
+        buttonPanel.add(searchPatientButton);
+        buttonPanel.add(sortAppointmentsButton);
         buttonPanel.add(backButton);
 
         setLayout(new BorderLayout(10, 10));
@@ -55,12 +62,15 @@ public class ReportsView extends JFrame {
         return showAppointmentsButton;
     }
 
-    public JButton getBackButton() {
-        return backButton;
+    public JButton getSearchPatientButton() {
+        return searchPatientButton;
     }
 
-    public static void main(String[] args) {
-        ReportsView view = new ReportsView();
-        view.setVisible(true);
+    public JButton getSortAppointmentsButton() {
+        return sortAppointmentsButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }
