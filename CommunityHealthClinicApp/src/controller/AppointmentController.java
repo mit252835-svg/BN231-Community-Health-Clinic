@@ -1,5 +1,5 @@
 package controller;
-
+import data.FileManager;
 import javax.swing.JOptionPane;
 
 import model.Appointment;
@@ -64,6 +64,7 @@ public class AppointmentController {
         );
 
         clinic.addAppointment(appointment);
+        FileManager.saveAppointments(clinic.getAppointments());
 
         JOptionPane.showMessageDialog(
                 view,

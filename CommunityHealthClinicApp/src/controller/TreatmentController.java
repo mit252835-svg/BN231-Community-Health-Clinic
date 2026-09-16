@@ -1,5 +1,5 @@
 package controller;
-
+import data.FileManager;
 import javax.swing.JOptionPane;
 
 import model.Clinic;
@@ -64,6 +64,8 @@ public class TreatmentController {
         );
 
         clinic.addTreatment(treatment);
+        
+        FileManager.saveTreatments(clinic.getTreatments());
 
         JOptionPane.showMessageDialog(
                 view,

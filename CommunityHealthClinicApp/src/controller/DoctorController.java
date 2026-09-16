@@ -1,4 +1,5 @@
 package controller;
+import data.FileManager;
 
 import javax.swing.JOptionPane;
 
@@ -45,6 +46,8 @@ public class DoctorController {
         Doctor doctor = new Doctor(id, name, specialty, phone);
 
         clinic.addDoctor(doctor);
+
+        FileManager.saveDoctors(clinic.getDoctors());
 
         JOptionPane.showMessageDialog(
                 view,

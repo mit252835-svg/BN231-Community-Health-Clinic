@@ -1,5 +1,5 @@
 package controller;
-
+import data.FileManager;
 import javax.swing.JOptionPane;
 
 import model.Appointment;
@@ -16,7 +16,6 @@ public class ReportsController {
 
         this.clinic = clinic;
         this.view = new ReportsView();
-
         view.getShowPatientsButton().addActionListener(e -> showPatients());
 
         view.getShowAppointmentsButton().addActionListener(e -> showAppointments());
@@ -24,6 +23,9 @@ public class ReportsController {
         view.getSearchPatientButton().addActionListener(e -> searchPatient());
         
         view.getSortAppointmentsButton().addActionListener(e -> sortAppointments());
+        view.getUpdatePatientButton().addActionListener(e -> updatePatient());
+
+        view.getDeletePatientButton().addActionListener(e -> deletePatient());
 
         view.getBackButton().addActionListener(e -> view.dispose());
 
@@ -128,5 +130,109 @@ public class ReportsController {
         }
 
         view.getReportArea().setText(result);
+    }
+    private void updatePatient() {
+
+        String patientId = JOptionPane.showInputDialog(
+                view,
+                "Enter Patient ID to update:"
+        );
+
+        if (patientId == null || patientId.isEmpty()) {
+            return;
+        }
+
+        Patient patient = clinic.findPatientById(patientId);
+
+        if (patient == null) {
+
+            JOptionPane.showMessageDialog(
+                    view,
+                    "Patient not found."
+            );
+
+            return;
+        }
+
+        String newName = JOptionPane.showInputDialog(
+                view,
+                "Enter new name:",
+                patient.getName()
+        );
+
+        String newPhone = JOptionPane.showInputDialog(
+                view,
+                "Enter new phone:",
+                patient.getPhone()
+        );
+
+        String newAddress = JOptionPane.showInputDialog(
+                view,
+                "Enter new address:",
+                patient.getAddress()
+        );
+
+        if (newName == null || newPhone == null || newAddress == null) {
+            return;
+        }
+
+        clinic.updatePatient(
+                patientId,
+                newName,
+                newPhone,
+                newAddress
+        );
+
+        FileManager.savePatients(clinic.getPatients());
+
+        JOptionPane.showMessageDialog(
+                view,
+                "Patient updated successfully."
+        );
+
+        showPatients();
+    }private void deletePatient() {
+
+        String patientId = JOptionPane.showInputDialog(
+                view,
+                "Enter Patient ID to delete:"
+        );
+
+        if (patientId == null || patientId.isEmpty()) {
+            return;
+        }
+
+        Patient patient = clinic.findPatientById(patientId);
+
+        if (patient == null) {
+
+            JOptionPane.showMessageDialog(
+                    view,
+                    "Patient not found."
+            );
+
+            return;
+        }
+
+        int answer = JOptionPane.showConfirmDialog(
+                view,
+                "Are you sure you want to delete this patient?",
+                "Delete Patient",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (answer == JOptionPane.YES_OPTION) {
+
+            clinic.deletePatientById(patientId);
+
+            FileManager.savePatients(clinic.getPatients());
+
+            JOptionPane.showMessageDialog(
+                    view,
+                    "Patient deleted successfully."
+            );
+
+            showPatients();
+        }
     }
 }

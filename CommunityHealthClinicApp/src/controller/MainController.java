@@ -12,11 +12,26 @@ public class MainController {
 
     public MainController() {
 
-        clinic = new Clinic();
-        clinic.getPatients().addAll(FileManager.loadPatients());
-        System.out.println("Loaded patients: " + clinic.getPatients().size());
-        mainMenu = new MainMenuView();
+    	clinic = new Clinic();
 
+    	clinic.getPatients().addAll(FileManager.loadPatients());
+    	clinic.getDoctors().addAll(FileManager.loadDoctors());
+
+    	clinic.getAppointments().addAll(
+    	        FileManager.loadAppointments(clinic)
+    	);
+
+    	clinic.getTreatments().addAll(
+    	        FileManager.loadTreatments(clinic)
+    	);
+
+    	System.out.println("Loaded patients: " + clinic.getPatients().size());
+    	System.out.println("Loaded doctors: " + clinic.getDoctors().size());
+    	System.out.println("Loaded appointments: " + clinic.getAppointments().size());
+    	System.out.println("Loaded treatments: " + clinic.getTreatments().size());
+    	
+    	mainMenu = new MainMenuView();
+    	
         mainMenu.getPatientButton().addActionListener(e -> {
             new PatientController(clinic);
         });

@@ -86,5 +86,40 @@ public class Clinic {
             }
         }
     }
+    public boolean deletePatientById(String patientId) {
 
+        for (int i = 0; i < patients.size(); i++) {
+
+            Patient patient = patients.get(i);
+
+            if (patient.getPatientId().equalsIgnoreCase(patientId)) {
+
+                patients.remove(i);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public boolean updatePatient(
+            String patientId,
+            String newName,
+            String newPhone,
+            String newAddress) {
+
+        Patient patient = findPatientById(patientId);
+
+        if (patient != null) {
+
+            patient.setName(newName);
+            patient.setPhone(newPhone);
+            patient.setAddress(newAddress);
+
+            return true;
+        }
+
+        return false;
+    }
     }
